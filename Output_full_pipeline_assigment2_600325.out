@@ -1,0 +1,382 @@
+Starting slurm script
+Thu Feb 19 17:57:09 MST 2026
+uid=27486284(karen.lopez) gid=27486284(karen.lopez) groups=27486284(karen.lopez),60000018(ensf617_2026w)
+Start initialization
+/home/karen.lopez/software/miniconda3/envs/ENEN645_gpu/bin/python
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                     /home/karen.lopez/software/miniconda3
+ENEN645_gpu          *   /home/karen.lopez/software/miniconda3/envs/ENEN645_gpu
+
+Thu Feb 19 17:57:13 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla T4                       On  |   00000000:3B:00.0 Off |                    0 |
+| N/A   37C    P8             11W /   70W |       1MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+2.7.1+cu118
+CUDA avail: True
+device count: 1
+Finished initializing
+
+[TRAIN] samples: 11629
+  Black   : 2368
+  Blue    : 4842
+  Green   : 2317
+  TTR     : 2102
+
+[VAL] samples: 1800
+  Black   : 372
+  Blue    : 768
+  Green   : 352
+  TTR     : 308
+
+[TEST] samples: 3432
+  Black   : 695
+  Blue    : 1086
+  Green   : 799
+  TTR     : 852
+
+TF-IDF vocab size (features): 2000
+
+Device: cuda
+CUDA device: Tesla T4
+
+Epoch 1/12
+[TRAIN] Loss: 0.9743  Acc: 0.6694
+
+[VAL] Loss: 0.6665  Acc: 0.8328  BalancedAcc: 0.8194  MacroF1: 0.8234
+              precision    recall  f1-score   support
+
+       Black     0.7898    0.7070    0.7461       372
+        Blue     0.8435    0.8841    0.8633       768
+       Green     0.8523    0.8523    0.8523       352
+         TTR     0.8290    0.8344    0.8317       308
+
+    accuracy                         0.8328      1800
+   macro avg     0.8286    0.8194    0.8234      1800
+weighted avg     0.8316    0.8328    0.8315      1800
+
+Confusion Matrix:
+ [[263  66  18  25]
+ [ 46 679  24  19]
+ [  9  34 300   9]
+ [ 15  26  10 257]]
+Current LRs: [0.0003]
+Epoch time: 995.1s
+ New best balanced_acc: 0.8194 (epoch 1) saved -> best_model_multimodal.pth
+
+Epoch 2/12
+[TRAIN] Loss: 0.5728  Acc: 0.8547
+
+[VAL] Loss: 0.5272  Acc: 0.8683  BalancedAcc: 0.8749  MacroF1: 0.8646
+              precision    recall  f1-score   support
+
+       Black     0.7935    0.8575    0.8243       372
+        Blue     0.9237    0.8516    0.8862       768
+       Green     0.8750    0.8750    0.8750       352
+         TTR     0.8343    0.9156    0.8731       308
+
+    accuracy                         0.8683      1800
+   macro avg     0.8566    0.8749    0.8646      1800
+weighted avg     0.8720    0.8683    0.8690      1800
+
+Confusion Matrix:
+ [[319  18  10  25]
+ [ 65 654  28  21]
+ [ 12  22 308  10]
+ [  6  14   6 282]]
+Current LRs: [0.0003]
+Epoch time: 986.8s
+ New best balanced_acc: 0.8749 (epoch 2) saved -> best_model_multimodal.pth
+
+Epoch 3/12
+
+ Switching to fine-tuning: unfreeze ResNet layer3 + layer4 (discriminative LR)
+[TRAIN] Loss: 0.4453  Acc: 0.9028
+
+[VAL] Loss: 0.4730  Acc: 0.8867  BalancedAcc: 0.8886  MacroF1: 0.8819
+              precision    recall  f1-score   support
+
+       Black     0.7937    0.8790    0.8342       372
+        Blue     0.9376    0.8802    0.9080       768
+       Green     0.9042    0.9119    0.9081       352
+         TTR     0.8718    0.8831    0.8774       308
+
+    accuracy                         0.8867      1800
+   macro avg     0.8768    0.8886    0.8819      1800
+weighted avg     0.8901    0.8867    0.8875      1800
+
+Confusion Matrix:
+ [[327  19   6  20]
+ [ 52 676  25  15]
+ [ 11  15 321   5]
+ [ 22  11   3 272]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1032.4s
+ New best balanced_acc: 0.8886 (epoch 3) saved -> best_model_multimodal.pth
+
+Epoch 4/12
+[TRAIN] Loss: 0.3821  Acc: 0.9286
+
+[VAL] Loss: 0.4690  Acc: 0.8939  BalancedAcc: 0.8982  MacroF1: 0.8901
+              precision    recall  f1-score   support
+
+       Black     0.8278    0.8790    0.8527       372
+        Blue     0.9404    0.8828    0.9107       768
+       Green     0.8966    0.9119    0.9042       352
+         TTR     0.8681    0.9188    0.8927       308
+
+    accuracy                         0.8939      1800
+   macro avg     0.8832    0.8982    0.8901      1800
+weighted avg     0.8962    0.8939    0.8944      1800
+
+Confusion Matrix:
+ [[327  19   5  21]
+ [ 50 678  25  15]
+ [  7  17 321   7]
+ [ 11   7   7 283]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1026.4s
+ New best balanced_acc: 0.8982 (epoch 4) saved -> best_model_multimodal.pth
+
+Epoch 5/12
+[TRAIN] Loss: 0.3482  Acc: 0.9469
+
+[VAL] Loss: 0.4669  Acc: 0.8939  BalancedAcc: 0.8936  MacroF1: 0.8898
+              precision    recall  f1-score   support
+
+       Black     0.8270    0.8737    0.8497       372
+        Blue     0.9286    0.8971    0.9126       768
+       Green     0.8876    0.8977    0.8927       352
+         TTR     0.9029    0.9058    0.9044       308
+
+    accuracy                         0.8939      1800
+   macro avg     0.8865    0.8936    0.8898      1800
+weighted avg     0.8952    0.8939    0.8943      1800
+
+Confusion Matrix:
+ [[325  25   6  16]
+ [ 41 689  30   8]
+ [ 12  18 316   6]
+ [ 15  10   4 279]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1026.1s
+No improvement. Patience: 1/4
+
+Epoch 6/12
+[TRAIN] Loss: 0.3070  Acc: 0.9654
+
+[VAL] Loss: 0.4762  Acc: 0.9011  BalancedAcc: 0.8985  MacroF1: 0.8961
+              precision    recall  f1-score   support
+
+       Black     0.8718    0.8226    0.8465       372
+        Blue     0.9205    0.9193    0.9199       768
+       Green     0.9213    0.8977    0.9094       352
+         TTR     0.8673    0.9545    0.9088       308
+
+    accuracy                         0.9011      1800
+   macro avg     0.8952    0.8985    0.8961      1800
+weighted avg     0.9015    0.9011    0.9008      1800
+
+Confusion Matrix:
+ [[306  35   7  24]
+ [ 29 706  18  15]
+ [ 11  19 316   6]
+ [  5   7   2 294]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1027.0s
+ New best balanced_acc: 0.8985 (epoch 6) saved -> best_model_multimodal.pth
+
+Epoch 7/12
+[TRAIN] Loss: 0.2932  Acc: 0.9705
+
+[VAL] Loss: 0.4789  Acc: 0.8839  BalancedAcc: 0.8858  MacroF1: 0.8796
+              precision    recall  f1-score   support
+
+       Black     0.8080    0.8710    0.8383       372
+        Blue     0.9297    0.8776    0.9029       768
+       Green     0.8726    0.9148    0.8932       352
+         TTR     0.8885    0.8799    0.8842       308
+
+    accuracy                         0.8839      1800
+   macro avg     0.8747    0.8858    0.8796      1800
+weighted avg     0.8863    0.8839    0.8844      1800
+
+Confusion Matrix:
+ [[324  23   9  16]
+ [ 46 674  34  14]
+ [ 10  16 322   4]
+ [ 21  12   4 271]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1027.2s
+No improvement. Patience: 1/4
+
+Epoch 8/12
+[TRAIN] Loss: 0.2741  Acc: 0.9816
+
+[VAL] Loss: 0.4785  Acc: 0.8900  BalancedAcc: 0.8915  MacroF1: 0.8863
+              precision    recall  f1-score   support
+
+       Black     0.8457    0.8548    0.8503       372
+        Blue     0.9254    0.8880    0.9063       768
+       Green     0.8594    0.9205    0.8889       352
+         TTR     0.8968    0.9026    0.8997       308
+
+    accuracy                         0.8900      1800
+   macro avg     0.8818    0.8915    0.8863      1800
+weighted avg     0.8911    0.8900    0.8902      1800
+
+Confusion Matrix:
+ [[318  25  12  17]
+ [ 41 682  34  11]
+ [  7  17 324   4]
+ [ 10  13   7 278]]
+Current LRs: [5e-05, 0.0001, 0.0003, 0.0003]
+Epoch time: 1024.2s
+No improvement. Patience: 2/4
+
+Epoch 9/12
+[TRAIN] Loss: 0.2621  Acc: 0.9860
+
+[VAL] Loss: 0.4801  Acc: 0.8889  BalancedAcc: 0.8872  MacroF1: 0.8842
+              precision    recall  f1-score   support
+
+       Black     0.8333    0.8333    0.8333       372
+        Blue     0.9164    0.8997    0.9080       768
+       Green     0.9008    0.9034    0.9021       352
+         TTR     0.8754    0.9123    0.8935       308
+
+    accuracy                         0.8889      1800
+   macro avg     0.8815    0.8872    0.8842      1800
+weighted avg     0.8892    0.8889    0.8889      1800
+
+Confusion Matrix:
+ [[310  31  10  21]
+ [ 37 691  25  15]
+ [  8  22 318   4]
+ [ 17  10   0 281]]
+Current LRs: [2.5e-05, 5e-05, 0.00015, 0.00015]
+Epoch time: 1026.7s
+No improvement. Patience: 3/4
+
+Epoch 10/12
+[TRAIN] Loss: 0.2498  Acc: 0.9908
+
+[VAL] Loss: 0.4695  Acc: 0.8989  BalancedAcc: 0.8989  MacroF1: 0.8956
+              precision    recall  f1-score   support
+
+       Black     0.8299    0.8790    0.8538       372
+        Blue     0.9289    0.9010    0.9147       768
+       Green     0.9088    0.9062    0.9075       352
+         TTR     0.9032    0.9091    0.9061       308
+
+    accuracy                         0.8989      1800
+   macro avg     0.8927    0.8989    0.8956      1800
+weighted avg     0.9001    0.8989    0.8993      1800
+
+Confusion Matrix:
+ [[327  22   8  15]
+ [ 42 692  23  11]
+ [  9  20 319   4]
+ [ 16  11   1 280]]
+Current LRs: [2.5e-05, 5e-05, 0.00015, 0.00015]
+Epoch time: 1025.0s
+ New best balanced_acc: 0.8989 (epoch 10) saved -> best_model_multimodal.pth
+
+Epoch 11/12
+[TRAIN] Loss: 0.2437  Acc: 0.9927
+
+[VAL] Loss: 0.4791  Acc: 0.8950  BalancedAcc: 0.8900  MacroF1: 0.8906
+              precision    recall  f1-score   support
+
+       Black     0.8400    0.8468    0.8434       372
+        Blue     0.9106    0.9154    0.9130       768
+       Green     0.9208    0.8920    0.9062       352
+         TTR     0.8942    0.9058    0.9000       308
+
+    accuracy                         0.8950      1800
+   macro avg     0.8914    0.8900    0.8906      1800
+weighted avg     0.8952    0.8950    0.8951      1800
+
+Confusion Matrix:
+ [[315  33   9  15]
+ [ 33 703  18  14]
+ [  8  26 314   4]
+ [ 19  10   0 279]]
+Current LRs: [2.5e-05, 5e-05, 0.00015, 0.00015]
+Epoch time: 1062.3s
+No improvement. Patience: 1/4
+
+Epoch 12/12
+[TRAIN] Loss: 0.2379  Acc: 0.9947
+
+[VAL] Loss: 0.4895  Acc: 0.8950  BalancedAcc: 0.8916  MacroF1: 0.8915
+              precision    recall  f1-score   support
+
+       Black     0.8533    0.8441    0.8486       372
+        Blue     0.9079    0.9115    0.9097       768
+       Green     0.9181    0.8920    0.9049       352
+         TTR     0.8871    0.9188    0.9027       308
+
+    accuracy                         0.8950      1800
+   macro avg     0.8916    0.8916    0.8915      1800
+weighted avg     0.8951    0.8950    0.8949      1800
+
+Confusion Matrix:
+ [[314  33   8  17]
+ [ 34 700  19  15]
+ [  7  27 314   4]
+ [ 13  11   1 283]]
+Current LRs: [2.5e-05, 5e-05, 0.00015, 0.00015]
+Epoch time: 1035.2s
+No improvement. Patience: 2/4
+
+Best epoch: 10 | Best balanced_acc: 0.8989
+
+=========================
+FINAL TEST EVALUATION
+=========================
+
+[TEST] Loss: 0.5813  Acc: 0.8596  BalancedAcc: 0.8533  MacroF1: 0.8556
+              precision    recall  f1-score   support
+
+       Black     0.7988    0.7540    0.7757       695
+        Blue     0.8379    0.8950    0.8655      1086
+       Green     0.9126    0.9274    0.9199       799
+         TTR     0.8868    0.8369    0.8611       852
+
+    accuracy                         0.8596      3432
+   macro avg     0.8590    0.8533    0.8556      3432
+weighted avg     0.8595    0.8596    0.8589      3432
+
+Confusion Matrix:
+ [[524  86  20  65]
+ [ 53 972  39  22]
+ [ 24  30 741   4]
+ [ 55  72  12 713]]
+
+Saved confusion matrix: outputs/confusion_matrix_TEST.png
+Saved misclassified grid: outputs/misclassified_TEST_grid.png
+Test Macro F1: 0.8555742615960028
+
+Figures saved under: outputs/
+Ending slurm script for full_pipeline_assignment2.py
+Thu Feb 19 21:26:44 MST 2026
